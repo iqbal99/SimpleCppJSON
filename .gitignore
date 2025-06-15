@@ -233,3 +233,10 @@ valgrind-out.*
 # =============================================================================
 
 # Add any project-specific files to ignore below this line 
+
+# Executable test files
+naive_test
+smart_test
+test_circular
+test_critical_fixes
+main
