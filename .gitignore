@@ -1,0 +1,235 @@
+# =============================================================================
+# C++ JSON Library - Git Ignore File
+# =============================================================================
+
+# Build directories and artifacts
+build/
+build-*/
+bin/
+obj/
+out/
+dist/
+release/
+debug/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+install_manifest.txt
+CTestTestfile.cmake
+Testing/
+
+# C++ compiled artifacts
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.a
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.map
+
+# Executables (common names for this project)
+json_test
+json_example
+main_test
+test_*
+example_*
+
+# Compiler and linker files
+*.d
+*.dep
+*.gch
+*.pch
+*.tmp
+
+# IDE and Editor files
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## Visual Studio
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## CLion / IntelliJ
+.idea/
+cmake-build-*/
+
+## Code::Blocks
+*.cbp
+*.layout
+*.depend
+
+## Dev-C++
+*.dev
+
+## Qt Creator
+*.pro.user
+*.pro.user.*
+CMakeLists.txt.user*
+
+## Xcode
+*.xcodeproj/
+*.xcworkspace/
+
+# System files
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+## Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Package managers
+## Conan
+conandata.yml
+conanfile.txt
+conaninfo.txt
+conanbuildinfo.*
+conan.lock
+
+## vcpkg
+vcpkg_installed/
+.vcpkg-root
+
+# Testing and coverage
+coverage/
+*.gcov
+*.gcno
+*.gcda
+lcov.info
+coverage.info
+*.profdata
+*.profraw
+
+# Documentation build
+docs/build/
+docs/_build/
+doc/html/
+doc/latex/
+*.dox
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# Static analysis
+cppcheck-build-dir/
+*.sarif
+
+# Profiling
+gmon.out
+callgrind.out.*
+perf.data*
+*.dSYM/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archive files (unless specifically needed)
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.7z
+*.rar
+
+# Environment and configuration
+.env
+.env.local
+.env.*.local
+config.local.*
+
+# Cache directories
+.cache/
+cache/
+
+# Node.js (if using for documentation tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using for build scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Rust (if mixed with Rust components)
+target/
+Cargo.lock
+
+# Custom build outputs for this project
+json_library
+libjson.a
+libjson.so
+
+# Benchmark results
+benchmark_results/
+*.benchmark
+
+# Valgrind output
+valgrind-out.*
+*.memcheck
+
+# AddressSanitizer/ThreadSanitizer output
+*.asan
+*.tsan
+*.msan
+*.ubsan
+
+# =============================================================================
+# Project-specific ignores
+# =============================================================================
+
+# Add any project-specific files to ignore below this line 
