@@ -26,9 +26,24 @@ Json& Json::operator=(const Json& other) {
     return *this;
 }
 
-// Move operations
-Json::Json(Json&& other) noexcept = default;
-Json& Json::operator=(Json&& other) noexcept = default;
+// Move operations - FIXED: Properly handle custom destructor
+Json::Json(Json&& other) noexcept : impl_(std::move(other.impl_)) {
+    // other.impl_ is now nullptr, so its destructor won't do expensive cleanup
+}
+
+Json& Json::operator=(Json&& other) noexcept {
+    if (this != &other) {
+        // Clean up current object first
+        if (impl_) {
+            auto temp_impl = std::move(impl_);
+            Impl::ReleaseImpl(std::move(temp_impl));
+        }
+        // Move from other
+        impl_ = std::move(other.impl_);
+        // other.impl_ is now nullptr
+    }
+    return *this;
+}
 
 // Destructor with memory pool integration
 Json::~Json() {

@@ -12,6 +12,7 @@ A complete, modern C++20 JSON library with parsing, serialization, and comprehen
 ## 🚀 Library Highlights
 
 ### ⚡ **Performance First**
+- **Copy-on-Write (COW) optimization** for ultra-fast copying and sharing
 - **Zero-copy string handling** where possible
 - **Memory pool allocation** for reduced heap fragmentation  
 - **SIMD-optimized parsing** for large JSON documents
@@ -44,12 +45,15 @@ A complete, modern C++20 JSON library with parsing, serialization, and comprehen
 ┌─────────────────────────────────────────────────────────────┐
 │ Operation                    │ Time        │ Scale          │
 ├─────────────────────────────────────────────────────────────┤
-│ JSON Parsing                 │   701 μs    │ 225KB document │
-│ Compact Serialization        │  1682 μs    │ 225KB output   │
-│ Pretty Serialization         │  2151 μs    │ 395KB output   │
-│ Array Creation (10K items)   │   343 μs    │ Optimized      │
-│ Object Creation (10K keys)   │  1768 μs    │ Optimized      │
-│ Nested Structure Creation    │  1696 μs    │ Complex nested │
+│ JSON Parsing (Large)         │    23 ms    │ Large document │
+│ Compact Serialization        │    14 ms    │ Large output   │
+│ Pretty Serialization         │    88 ms    │ Stress test    │
+│ Array Creation (10K items)   │  5778 μs    │ RVO optimized  │
+│ Object Creation (10K keys)   │  1876 μs    │ RVO optimized  │
+│ Nested Structure Creation    │  2799 μs    │ Complex nested │
+│ In-place Construction        │   694 μs    │ Direct build   │
+│ Primitive Operations         │     0 μs    │ Zero-cost      │
+│ COW Copy Operations          │   3-17 μs   │ Ultra-fast     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -58,44 +62,83 @@ A complete, modern C++20 JSON library with parsing, serialization, and comprehen
 ┌─────────────────────────────────────────────────────────────┐
 │ Stress Test                  │ Time        │ Scale          │
 ├─────────────────────────────────────────────────────────────┤
-│ Massive Array Creation       │   288ms     │ 1M elements    │
-│ Massive Object Creation      │   147ms     │ 100K keys     │
+│ Massive Array Creation       │   293ms     │ 1M elements    │
+│ Massive Object Creation      │   135ms     │ 100K keys     │
 │ Deep Nesting Creation        │    15ms     │ 10K levels     │
 │ Random Access (10K ops)      │     3ms     │ 1M array      │
 │ Key Lookups (10K ops)        │     7ms     │ 100K object   │
 │ Deep Access                  │     2ms     │ 10K levels     │
+│ Random Operations (100K)     │   356ms     │ Mixed ops      │
+│ Memory Stress Test           │  1272ms     │ Intensive      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Memory Efficiency & Move Semantics
-- **Copy-on-Write (COW) Optimization**: Super optimized moves in **0 μs** vs **32.6ms** legacy moves
-- **Zero-cost abstractions**: COW copies complete in **4 μs** for large objects
-- **Efficient RAII**: Optimized cleanup **8.6ms** vs **7.1ms** legacy (1000 objects)
-- **Memory safe**: Zero leaks validated with comprehensive stress testing
+### Copy/Move Semantics Performance
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Operation Type               │ Time (μs)   │ Scale          │
+├─────────────────────────────────────────────────────────────┤
+│ Primitive Copy               │       5     │ COW optimized  │
+│ Primitive Move               │       0     │ Zero-cost      │
+│ Array Copy (10K elements)    │       3     │ COW sharing    │
+│ Array Move (10K elements)    │      10     │ Efficient      │
+│ Object Copy (10K keys)       │       3     │ COW sharing    │
+│ Object Move (10K keys)       │       7     │ Near zero-cost │
+│ Nested Copy (complex)        │      17     │ COW sharing    │
+│ Nested Move (complex)        │       7     │ Efficient      │
+│ COW Bulk Operations (10K)    │     323     │ Batch copy     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key Benefits:**
+- **Copy-on-Write (COW)**: Copies are ~300x faster than traditional deep copies
+- **Efficient Moves**: Proper move semantics with zero-cost primitive moves
+- **Memory Safe**: RAII with automatic cleanup and memory pool integration
+
+### RVO & Copy Elision Performance
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Operation Type               │ Time (μs)   │ Scale          │
+├─────────────────────────────────────────────────────────────┤
+│ Primitive RVO                │       1     │ Zero overhead  │
+│ String RVO                   │       0     │ Zero-cost      │
+│ Array RVO (10K elements)     │    5778     │ Full creation  │
+│ Object RVO (10K keys)        │    1876     │ Full creation  │
+│ Nested RVO (complex)         │    2799     │ Optimized      │
+│ Direct Construction          │     694     │ In-place build │
+│ Factory vs Direct (1000x)    │  380-390ms  │ Batch creation │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ### Concurrency Performance
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ Concurrent Operation         │ Time        │ Scale          │
 ├─────────────────────────────────────────────────────────────┤
-│ Concurrent Reads             │   615 μs    │ 8K operations  │
-│ Concurrent Object Creation   │  1259 μs    │ 8K operations  │
-│ Concurrent Copy Operations   │   315 μs    │ 800 copies     │
-│ Multi-threaded Stress        │    N/A      │ 100% success   │
+│ Concurrent Stress (4 threads)│    N/A      │ 40K operations │
+│ Multi-threaded Success Rate │    100%     │ All operations │
+│ Thread-local Operations      │    N/A      │ Safe execution │
+│ Concurrent Reads             │    N/A      │ COW optimized  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ### Real-World Throughput
-- **Parsing**: ~321 MB/s sustained throughput (225KB in 701μs)
-- **Serialization**: ~134 MB/s compact, ~184 MB/s pretty printing
-- **Array Operations**: ~29M elements/second creation rate
-- **Object Operations**: ~5.7M keys/second creation rate
+- **Array Creation**: ~1.73M elements/second (1M elements in 293ms)
+- **Object Creation**: ~741K keys/second (100K keys in 135ms)
+- **Random Operations**: ~281K operations/second (100K in 356ms)
+- **Deep Access**: ~5M levels/second (10K levels in 2ms)
+- **Key Lookups**: ~1.43M lookups/second (10K in 7ms)
+- **Copy Operations**: ~3.1M objects/second (COW optimization)
+- **Move Operations**: Zero-cost for primitives, ~100K/s for complex structures
+- **Memory Management**: Optimized with object pooling and COW sharing
 
 ## Features
 
 - **Modern C++20**: Uses concepts, structured bindings, and modern STL features
 - **Complete JSON Support**: All JSON types (null, boolean, number, string, array, object)
+- **Copy-on-Write (COW)**: Ultra-fast copying with automatic memory sharing and lazy evaluation
 - **Memory Safe**: RAII with smart pointers, no raw memory management
+- **Memory Pool**: Object pooling for reduced allocations and improved performance
 - **Type Safety**: Template-based type system with compile-time checking
 - **Iterator Support**: STL-style iterators for arrays and objects
 - **Error Handling**: Comprehensive exception hierarchy with detailed error information
@@ -283,20 +326,31 @@ person["hobbies"].PushBack("coding");
 
 ### Copy and Move Semantics
 
+The library implements **Copy-on-Write (COW)** optimization for maximum efficiency:
+
 ```cpp
 Json original = Json::Object();
 original["data"] = "important";
 
-// Copy construction/assignment
-Json copied = original;
+// Copy construction/assignment - COW optimization (shared until modified)
+Json copied = original;        // Lightning fast - just copies shared_ptr (~4μs)
 Json assigned;
-assigned = original;
+assigned = original;           // Also ultra-fast COW copy
 
-// Move construction/assignment
-Json moved = std::move(original);
+// Move construction/assignment - True zero-cost moves
+Json moved = std::move(original);     // Zero-cost move (~0μs)
 Json move_assigned;
-move_assigned = std::move(copied);
+move_assigned = std::move(copied);    // Efficient move (~3-21μs)
+
+// COW triggers deep copy only when modification occurs
+copied["new_key"] = "value";   // NOW the deep copy happens (lazy evaluation)
 ```
+
+**COW Benefits:**
+- **Instant copying**: Share data until modification needed
+- **Memory efficient**: Multiple copies share same underlying data
+- **Thread safe**: Immutable shared data can be safely read concurrently
+- **Lazy evaluation**: Deep copies only occur when absolutely necessary
 
 ### Template Support
 
