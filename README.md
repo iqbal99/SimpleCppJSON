@@ -2,12 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://en.cppreference.com/w/cpp/20)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/manuell/cpp-json-library)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/manuell/cpp-json-library/releases)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/iqbal99/SimpleCppJSON)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/iqbal99/SimpleCppJSON/releases)
 
 A complete, modern C++20 JSON library with parsing, serialization, and comprehensive iteration support.
 
-> **Developed by [manuell](https://github.com/manuell)** - A high-performance, memory-safe JSON library built for modern C++ applications.
+> **Developed by [iqbal99](https://github.com/iqbal99)** - A high-performance, memory-safe JSON library built for modern C++ applications.
 
 ## 🚀 Library Highlights
 
@@ -349,13 +349,13 @@ This project is open source. Feel free to use, modify, and distribute.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please check out our [Contributing Guide](https://github.com/manuell/cpp-json-library/blob/main/CONTRIBUTING.md) and feel free to submit issues and pull requests.
+Contributions are welcome! Please check out our [Contributing Guide](https://github.com/iqbal99/SimpleCppJSON/blob/main/CONTRIBUTING.md) and feel free to submit issues and pull requests.
 
 ### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/manuell/cpp-json-library.git
-cd cpp-json-library
+git clone https://github.com/iqbal99/SimpleCppJSON.git
+cd SimpleCppJSON
 
 # Install dependencies (Ubuntu/Debian)
 sudo apt-get install build-essential cmake catch2
@@ -376,23 +376,23 @@ ctest --verbose
 
 ## 🔗 Related Projects
 
-- [manuell/json-schema-cpp](https://github.com/manuell/json-schema-cpp) - JSON Schema validation
-- [manuell/json-rpc-cpp](https://github.com/manuell/json-rpc-cpp) - JSON-RPC 2.0 implementation
-- [manuell/cpp-utilities](https://github.com/manuell/cpp-utilities) - Common C++ utilities
+- [iqbal99/json-schema-cpp](https://github.com/iqbal99/json-schema-cpp) - JSON Schema validation
+- [iqbal99/json-rpc-cpp](https://github.com/iqbal99/json-rpc-cpp) - JSON-RPC 2.0 implementation
+- [iqbal99/cpp-utilities](https://github.com/iqbal99/cpp-utilities) - Common C++ utilities
 
 ## 📈 Changelog
 
-See [CHANGELOG.md](https://github.com/manuell/cpp-json-library/blob/main/CHANGELOG.md) for detailed release notes.
+See [CHANGELOG.md](https://github.com/iqbal99/SimpleCppJSON/blob/main/CHANGELOG.md) for detailed release notes.
 
 ## 🆘 Support
 
-- 📖 [Documentation](https://manuell.github.io/cpp-json-library/)
-- 🐛 [Issue Tracker](https://github.com/manuell/cpp-json-library/issues)
-- 💬 [Discussions](https://github.com/manuell/cpp-json-library/discussions)
-- ✉️ [Email Support](mailto:manuell@example.com)
+- 📖 [Documentation](https://iqbal99.github.io/SimpleCppJSON/)
+- 🐛 [Issue Tracker](https://github.com/iqbal99/SimpleCppJSON/issues)
+- 💬 [Discussions](https://github.com/iqbal99/SimpleCppJSON/discussions)
+- ✉️ [Email Support](mailto:iqbal99@example.com)
 
 ## ⭐ Star History
 
 If you find this project useful, please consider giving it a star on GitHub!
 
-[![Star History Chart](https://api.star-history.com/svg?repos=manuell/cpp-json-library&type=Timeline)](https://star-history.com/#manuell/cpp-json-library&Timeline) 
+[![Star History Chart](https://api.star-history.com/svg?repos=iqbal99/SimpleCppJSON&type=Timeline)](https://star-history.com/#iqbal99/SimpleCppJSON&Timeline) 
