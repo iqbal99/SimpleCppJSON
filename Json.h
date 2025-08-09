@@ -133,6 +133,12 @@ public:
         
         // Structured binding support
         template<size_t N>
+        decltype(auto) get() {
+            if constexpr (N == 0) return key;
+            else if constexpr (N == 1) return value();
+        }
+        
+        template<size_t N>
         decltype(auto) get() const {
             if constexpr (N == 0) return key;
             else if constexpr (N == 1) return value();
