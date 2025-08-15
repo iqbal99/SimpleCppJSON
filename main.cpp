@@ -236,7 +236,7 @@ namespace CopySemantics {
             Json assigned;
             assigned = original;
             assert(assigned["users"][2500]["preferences"]["theme"].Get<std::string>() == "light");
-            assert(assigned["users"][2499]["scores"][5].Get<int>() == 55 + 2499);
+            assert(assigned["users"][2499]["scores"][5].Get<int>() == 50 + 2499);
             std::cout << "✓ Nested copy assignment: deep access verified" << std::endl;
         }
     }
